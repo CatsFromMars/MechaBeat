@@ -26,6 +26,7 @@ ModelImporter:
     100040: Tummy
     100042: UpperArm_L
     100044: UpperArm_R
+    100046: Robe
     400000: Armature
     400002: Chest
     400004: Cube
@@ -49,13 +50,16 @@ ModelImporter:
     400040: Tummy
     400042: UpperArm_L
     400044: UpperArm_R
+    400046: Robe
     4300000: Cube
+    4300002: Robe
     7400000: Run
     7400002: ArmatureAction
     7400004: IdleStill
     7400006: IdleBeat
     9500000: //RootNode
     13700000: Cube
+    13700002: Robe
   materials:
     importMaterials: 1
     materialName: 0

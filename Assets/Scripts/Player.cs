@@ -27,7 +27,7 @@ public class Player : _AbstractRhythmObject {
 	}
 
 	override
-	public void rhythmUpdate(int beat) {
+	protected void rhythmUpdate(int beat) {
 		//Sync player animations to the music
 		if(animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) animator.SetTrigger(hash.beatTrigger);
 	}

@@ -7,7 +7,7 @@ public class SmoothCycleMovement : _AbstractRhythmObject {
     public int offset;
 
     override
-    public void rhythmUpdate(int beat) {
+    protected void rhythmUpdate(int beat) {
 
         int size = positions.Length;
 

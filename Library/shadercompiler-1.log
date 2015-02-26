@@ -9,3 +9,7 @@ Cmd: preprocess
   insize=1654 outsize=1035 ok=1
 Cmd: preprocess
   insize=1574 outsize=702 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4871 outsize=2997 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=4871 outsize=1770 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1

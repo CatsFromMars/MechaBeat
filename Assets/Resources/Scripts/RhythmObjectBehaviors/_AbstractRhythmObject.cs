@@ -4,13 +4,16 @@ using System.Collections;
 
 public abstract class _AbstractRhythmObject : MonoBehaviour {
 
+    /* Protected variables (can be accessed by subclasses) */
+    protected int BPM;
+    protected float samplesPerBeat;
+    protected float secondsPerBeat;
+
+    /* Private variables */
     private AudioSource audioSource;
     private AudioClip audioClip;
 
-    private int BPM;
-    private float samplesPerBeat;
     private int lastBeatUpdate = -1;
-
 
     public void Start() {
         GameObject bgmContainer = GameObject.FindGameObjectWithTag("BackgroundMusic");
@@ -19,8 +22,9 @@ public abstract class _AbstractRhythmObject : MonoBehaviour {
         audioClip = audioSource.clip;
 
         BPM = bgmContainer.GetComponent<MusicWrapper>().BPM;
-
-        samplesPerBeat = 60 * audioClip.frequency/BPM;
+        
+        secondsPerBeat = 60.0f / BPM;
+        samplesPerBeat = secondsPerBeat * audioClip.frequency;
     }
 
     public void Update() {

@@ -91,6 +91,7 @@ public class Player : _AbstractRhythmObject {
 	void Fall() {
 		Debug.Log ("FALL");
 		moveDirection.y = 0;
+		jumping = false;
 	}
 
 

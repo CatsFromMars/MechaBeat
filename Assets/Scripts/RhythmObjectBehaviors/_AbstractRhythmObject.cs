@@ -27,22 +27,22 @@ public abstract class _AbstractRhythmObject : MonoBehaviour {
         samplesPerBeat = secondsPerBeat * audioClip.frequency;
     }
 
-	public void Update() { //Place this in Update();
+	public void Update() { // Place this in Update();
 		int beat = (int)(audioSource.timeSamples / samplesPerBeat);
 		
 		if (beat != lastBeatUpdate) {
 			lastBeatUpdate = beat;
 			rhythmUpdate(beat);
 		}
-
+		
 		asyncUpdate();
 	}
 
-	//Use asyncUpdate to handle non rhythm things
+	// Use asyncUpdate() to handle rhythm independent things
 	protected virtual void asyncUpdate() {
 
 	}
 
-	//Use rhythmUpdate to specify what to do on each beat.
-    public abstract void rhythmUpdate(int beat);
+	// Use rhythmUpdate() to specify what to do on each beat.
+    protected abstract void rhythmUpdate(int beat);
 }

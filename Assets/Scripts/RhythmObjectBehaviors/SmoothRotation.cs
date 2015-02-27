@@ -7,7 +7,7 @@ public class SmoothRotation : _AbstractRhythmObject {
     public bool spherical;
 
     override
-    public void rhythmUpdate(int beat) {
+    protected void rhythmUpdate(int beat) {
         int size = rotations.Length;
         
         if (size <= 1) {

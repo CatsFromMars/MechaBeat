@@ -38,6 +38,11 @@ public abstract class _AbstractRhythmObject : MonoBehaviour {
 		asyncUpdate();
 	}
 
+    protected bool onBeat(float delta) {
+        float beatOffset = audioSource.timeSamples % samplesPerBeat;
+        return beatOffset < delta * audioClip.frequency;
+    }
+
 	// Use asyncUpdate() to handle rhythm independent things
 	protected virtual void asyncUpdate() {
 

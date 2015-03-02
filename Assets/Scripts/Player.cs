@@ -55,6 +55,10 @@ public class Player : _AbstractRhythmObject {
 		//Apply gravity
 		moveDirection.y -= gravity * Time.deltaTime;
 
+		//check if player fell to death
+		if(gameObject.transform.position.y<-10)
+			gameObject.transform.position=new Vector3(-10,5,0);
+
 	}
 
 	void MovePlayer() {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Rhythmify;
 
 public class Player : _AbstractRhythmObject {
 

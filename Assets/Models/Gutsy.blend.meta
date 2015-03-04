@@ -9,12 +9,52 @@ ModelImporter:
     100006: Sphere
     100008: Sphere_001
     100010: Sphere_002
+    100012: Armature
+    100014: Bone
+    100016: Bone_001
+    100018: Bone_003
+    100020: Bone_004
+    100022: FootR
+    100024: FootR_001
+    100026: Head
+    100028: Hip
+    100030: LowerLegR
+    100032: LowerLegR_001
+    100034: Tummy
+    100036: UpperLegR
+    100038: UpperLegR_001
+    100040: LowerArmL
+    100042: LowerArmR
+    100044: LowerLegL
+    100046: UpperArmL
+    100048: UpperArmR
+    100050: UpperLegL
     400000: Circle
     400002: Gear
     400004: //RootNode
     400006: Sphere
     400008: Sphere_001
     400010: Sphere_002
+    400012: Armature
+    400014: Bone
+    400016: Bone_001
+    400018: Bone_003
+    400020: Bone_004
+    400022: FootR
+    400024: FootR_001
+    400026: Head
+    400028: Hip
+    400030: LowerLegR
+    400032: LowerLegR_001
+    400034: Tummy
+    400036: UpperLegR
+    400038: UpperLegR_001
+    400040: LowerArmL
+    400042: LowerArmR
+    400044: LowerLegL
+    400046: UpperArmL
+    400048: UpperArmR
+    400050: UpperLegL
     2300000: Circle
     2300002: Gear
     2300004: Sphere
@@ -31,7 +71,11 @@ ModelImporter:
     4300006: Gear
     4300008: Sphere_002
     7400000: Default Take
+    7400002: ArmatureAction
+    7400004: Walk
+    7400006: Attack
     9500000: //RootNode
+    13700000: Sphere_001
   materials:
     importMaterials: 1
     materialName: 0
@@ -47,11 +91,243 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 10
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hip
+        weight: 1
+      - path: Armature/Hip/Tummy
+        weight: 1
+      - path: Armature/Hip/Tummy/Head
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL/LowerArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR/LowerArmR
+        weight: 1
+      - path: Armature/Hip/UpperLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL/FootR_001
+        weight: 1
+      - path: Armature/Hip/UpperLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR/FootR
+        weight: 1
+      - path: Sphere_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ArmatureAction
+      takeName: ArmatureAction
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hip
+        weight: 1
+      - path: Armature/Hip/Tummy
+        weight: 1
+      - path: Armature/Hip/Tummy/Head
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL/LowerArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR/LowerArmR
+        weight: 1
+      - path: Armature/Hip/UpperLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL/FootR_001
+        weight: 1
+      - path: Armature/Hip/UpperLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR/FootR
+        weight: 1
+      - path: Sphere_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Walk
+      takeName: Default Take
+      firstFrame: 2
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hip
+        weight: 1
+      - path: Armature/Hip/Tummy
+        weight: 1
+      - path: Armature/Hip/Tummy/Head
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL/LowerArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR/LowerArmR
+        weight: 1
+      - path: Armature/Hip/UpperLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL/FootR_001
+        weight: 1
+      - path: Armature/Hip/UpperLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR/FootR
+        weight: 1
+      - path: Sphere_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: Default Take
+      firstFrame: 50
+      lastFrame: 69
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hip
+        weight: 1
+      - path: Armature/Hip/Tummy
+        weight: 1
+      - path: Armature/Hip/Tummy/Head
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmL/LowerArmL
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR
+        weight: 1
+      - path: Armature/Hip/Tummy/UpperArmR/LowerArmR
+        weight: 1
+      - path: Armature/Hip/UpperLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL
+        weight: 1
+      - path: Armature/Hip/UpperLegL/LowerLegL/FootR_001
+        weight: 1
+      - path: Armature/Hip/UpperLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR
+        weight: 1
+      - path: Armature/Hip/UpperLegR/LowerLegR/FootR
+        weight: 1
+      - path: Sphere_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: .600000024
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

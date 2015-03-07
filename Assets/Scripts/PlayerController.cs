@@ -6,21 +6,19 @@ public class PlayerController : _AbstractRhythmObject {
 
     private GameObject controller;
     private HashIDs hash;
-    private Animator animator;
-    private float horiz; //Horizontal Axis (Plauer Input)
-    private float vert; //Vertical Axis (Player Input)
+    //private Animator animator;
     
     private int playerSpeed = 5;
     private Vector3 moveDirection;
     public bool onFloor = false;
     private bool jumping = false;
-    public bool canDoubleJump = false;
+    //public bool canDoubleJump = false;
     public float jumpForce = 100f;          // Amount of force added when the player jumps.
     private float airJumpForce; // amount of force added when player jumps in middle of jump
     public float moveForce = 365f;          // Amount of force added to move the player left and right.
 
     int beat;
-    private bool facingRight = true;
+    //private bool facingRight = true;
     public float maxDashTime = 1.0f;
     public float dashSpeed = 500.0f;
     public float dashStoppingSpeed = 0.1f;
@@ -31,34 +29,28 @@ public class PlayerController : _AbstractRhythmObject {
         moveDirection = Vector3.zero;
         controller = GameObject.FindGameObjectWithTag("GameController");
         hash = controller.GetComponent<HashIDs>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         currentDashTime = maxDashTime;
         airJumpForce = jumpForce * 0.6f;
     }
     
     void FixedUpdate() {
         //Cache player input
-        horiz = Input.GetAxisRaw("Horizontal");
-        vert = Input.GetAxisRaw("Vertical");
     }
     
-    override
-        protected void rhythmUpdate(int beat) {
+    override protected void rhythmUpdate(int beat) {
         //Sync player animations to the music
-        if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
-            animator.SetTrigger(hash.beatTrigger);
-        }
-        
+        //if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
+            //animator.SetTrigger(hash.beatTrigger);
+        //}
     }
     
-    override
-        protected void asyncUpdate() {
-        
+    override protected void asyncUpdate() {
         //Actual Player Controller Jazz
         MovePlayer();
 
         //Check to see if we're on the floor
-        animator.SetBool(hash.floorBool, onFloor);
+        //animator.SetBool(hash.floorBool, onFloor);
                 
         //Apply gravity
         //moveDirection.y -= gravity * Time.deltaTime;
@@ -75,16 +67,18 @@ public class PlayerController : _AbstractRhythmObject {
     void MovePlayer() {
         //Note: Player Movement Assumes InputAxisRaw and NOT InputAxis
         //Rotate Player and handle Running Animation
+        float horiz = Input.GetAxisRaw("Horizontal");
+
         if (horiz > 0) {
             transform.rotation = Quaternion.Euler(0, 90, 0);
-            animator.SetBool(hash.runningBool, true);
-            facingRight = true;
+            //animator.SetBool(hash.runningBool, true);
+            //facingRight = true;
         } else if (horiz < 0) {
             transform.rotation = Quaternion.Euler(0, -90, 0);
-            animator.SetBool(hash.runningBool, true);
-            facingRight = false;
+            //animator.SetBool(hash.runningBool, true);
+            //facingRight = false;
         } else if (horiz == 0) {
-            animator.SetBool(hash.runningBool, false);
+            //animator.SetBool(hash.runningBool, false);
         }
         
         //Update the horizontal movement vector
@@ -102,11 +96,11 @@ public class PlayerController : _AbstractRhythmObject {
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) {
-            if (onFloor) {
-                animator.SetBool(hash.jumpBool, true);
-                jumping = true;
-                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
-            } 
+            //if (onFloor) {
+                //animator.SetBool(hash.jumpBool, true);
+                //jumping = true;
+                rigidbody.AddForce(Vector3.up * jumpForce); 
+            //} 
         }
         
         rigidbody.velocity = new Vector3(
@@ -155,18 +149,17 @@ public class PlayerController : _AbstractRhythmObject {
             
             rigidbody.useGravity = false;
             
-            animator.SetBool(hash.jumpBool, false);
+            //animator.SetBool(hash.jumpBool, false);
             jumping = false;
-            canDoubleJump = false;
+            //canDoubleJump = false;
         }
-        
     }
     
     void OnCollisionExit(Collision collision) {
         if (collision.collider.gameObject.tag == "Floor") {
             onFloor = false;
             rigidbody.useGravity = true;
-            canDoubleJump = true;
+            //canDoubleJump = true;
         }
     }
     

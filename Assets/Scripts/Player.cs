@@ -159,7 +159,9 @@ public class Player : _AbstractRhythmObject
 		void OnCollisionStay (Collision collision)
 		{
 				if (collision.collider.gameObject.tag == "Floor")
-						onFloor = true;
+					onFloor = true;
+				if (collision.collider.gameObject.tag == "Harmful")
+					gameObject.transform.position = new Vector3 (-10, 5, 0);
 				animator.SetBool (hash.jumpBool, false);
 				jumping = false; 
 
@@ -169,6 +171,11 @@ public class Player : _AbstractRhythmObject
 		{
 				if (collision.collider.gameObject.tag == "Floor")
 						onFloor = false;
+				if (collision.collider.gameObject.tag == "Trampoline") 
+						animator.SetBool (hash.jumpBool, true);
+				if (collision.collider.gameObject.tag == "Harmful")
+						gameObject.transform.position = new Vector3 (-10, 5, 0);
+		
 		}
 
 }

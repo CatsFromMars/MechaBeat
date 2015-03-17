@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using Rhythmify;
 
@@ -11,8 +11,6 @@ public class PlayerController : _AbstractRhythmObject
 	
 	private int playerSpeed = 5;
 	private Vector3 moveDirection;
-	public bool onFloor = false;
-	private bool jumping = false;
 	private float initialHeight = 0f;
 	private float maxJumpHeight = 5.0f;
 	public bool canDoubleJump = false;
@@ -84,7 +82,6 @@ public class PlayerController : _AbstractRhythmObject
 			keyPressed = true;
 		} else if (horiz == 0) {
 			//animator.SetBool(hash.runningBool, false);
-			
 		}
 		
 		//Update the horizontal movement vector
@@ -93,33 +90,15 @@ public class PlayerController : _AbstractRhythmObject
 			rigidbody.AddForce (Vector3.right * horiz * moveForce / 2);
 		}
 		
-		if (horiz == 0) {
-			if (onFloor) {
-				rigidbody.velocity = new Vector3 (0.0f, 0.0f, 0.0f);
-			} else { 
-				rigidbody.velocity = new Vector3 (0.0f, rigidbody.velocity.y, 0.0f);
-			}
-		}
-		
-		
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			keyPressed = true;
-			if (onFloor) {
+			if (true) {
 				//animator.SetBool(hash.jumpBool, true);
-				jumping = true;
 				initialHeight = transform.position.y;
 				moveDirection = Vector3.up;
-				rigidbody.AddForce (moveDirection * jumpForce, ForceMode.Acceleration); 
+				rigidbody.AddForce(moveDirection * jumpForce); 
 			} 
 		}
-		
-		if (jumping && (transform.position.y - initialHeight < maxJumpHeight) && (transform.position.y - initialHeight > 0)) {
-			moveDirection = Vector3.up;
-			rigidbody.AddForce (moveDirection, ForceMode.Acceleration); 
-			
-		} else
-			jumping = false;
-		
 		
 		rigidbody.velocity = new Vector3 (
 			Mathf.Clamp (rigidbody.velocity.x, -maxSpeed, maxSpeed),
@@ -148,51 +127,5 @@ public class PlayerController : _AbstractRhythmObject
 		} else {
 			canDash = true;
 		}
-		
-		if (!keyPressed) {
-			// if no key pressed, no forces acting on player so
-			
-			if (onFloor) {
-				rigidbody.velocity = new Vector3 (0.0f, 0.0f, 0.0f);
-			} else {
-				rigidbody.velocity = new Vector3 (0.0f, rigidbody.velocity.y, 0.0f); 
-			}
-		}
 	}
-	
-	//Jumping Animation Events
-	void Rise ()
-	{   
-		//Debug.Log("RISE");
-	}
-	
-	void Fall ()
-	{ 
-		//Debug.Log("FALL");
-	}
-	
-	
-	//Handle Floor Collision
-	void OnCollisionStay (Collision collision)
-	{
-		if (collision.collider.gameObject.tag == "Floor") {
-			onFloor = true;
-			
-			rigidbody.useGravity = false;
-			
-			//animator.SetBool(hash.jumpBool, false);
-			jumping = false;
-			//canDoubleJump = false;
-		}
-	}
-	
-	void OnCollisionExit (Collision collision)
-	{
-		if (collision.collider.gameObject.tag == "Floor") {
-			onFloor = false;
-			rigidbody.useGravity = true;
-			//canDoubleJump = true;
-		}
-	}
-	
 }   

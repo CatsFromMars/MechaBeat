@@ -143,4 +143,15 @@ public class PlayerController : _AbstractRhythmObject
 			canJump = true;
 		}
 	}
+
+	void OnCollisionExit(Collision other)
+	{
+		if (other.collider.tag == "Floor") {
+			if (!canDoubleJump) {
+				// this means we left the floor because we fell, not because we jumped
+				// so can't jump when falling 
+				canJump = false;
+			}
+		}
+	}
 }   

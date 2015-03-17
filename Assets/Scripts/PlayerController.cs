@@ -10,12 +10,8 @@ public class PlayerController : _AbstractRhythmObject {
     
     private int playerSpeed = 5;
     private Vector3 moveDirection;
-    private float initialHeight = 0f;
-    private float maxJumpHeight = 5.0f;
-    public bool canDoubleJump = false;
-    public float jumpForce = 100f;          // Amount of force added when the player jumps.
-    private float airJumpForce; // amount of force added when player jumps in middle of jump
-    public float moveForce = 365f;          // Amount of force added to move the player left and right.
+    public float jumpForce = 100f;
+    public float moveForce = 365f;
     
     int beat;
     private bool facingRight = true;
@@ -31,7 +27,6 @@ public class PlayerController : _AbstractRhythmObject {
         hash = controller.GetComponent<HashIDs>();
         //animator = GetComponent<Animator>();
         currentDashTime = maxDashTime;
-        airJumpForce = jumpForce * 0.6f;
     }
     
     private float gravity = 9.8f;
@@ -63,18 +58,16 @@ public class PlayerController : _AbstractRhythmObject {
         //Note: Player Movement Assumes InputAxisRaw and NOT InputAxis
         //Rotate Player and handle Running Animation
         float horiz = Input.GetAxisRaw("Horizontal");
-        bool keyPressed = false; 
+        //bool keyPressed = false; 
         
         if (horiz > 0) {
             transform.rotation = Quaternion.Euler(0, 90, 0);
             //animator.SetBool(hash.runningBool, true);
             facingRight = true;
-            keyPressed = true;
         } else if (horiz < 0) {
             transform.rotation = Quaternion.Euler(0, -90, 0);
             //animator.SetBool(hash.runningBool, true);
             facingRight = false;
-            keyPressed = true;
         } else if (horiz == 0) {
             //animator.SetBool(hash.runningBool, false);
         }
@@ -86,13 +79,9 @@ public class PlayerController : _AbstractRhythmObject {
         }
         
         if (Input.GetKeyDown(KeyCode.Space)) {
-            keyPressed = true;
             if (true) {
-                //animator.SetBool(hash.jumpBool, true);
-                initialHeight = transform.position.y;
-                moveDirection = Vector3.up;
-                rigidbody.AddForce(moveDirection * jumpForce); 
-            } 
+                jump();
+            }
         }
         
         rigidbody.velocity = new Vector3(
@@ -105,7 +94,6 @@ public class PlayerController : _AbstractRhythmObject {
         if (Input.GetKeyDown(KeyCode.Z) && canDash) {
             currentDashTime = 0.0f;
             canDash = false;
-            keyPressed = true;
         }
         
         //  if (currentDashTime < maxDashTime && !canDash  && onBeat(0.1f))
@@ -122,5 +110,18 @@ public class PlayerController : _AbstractRhythmObject {
         } else {
             canDash = true;
         }
+    }
+
+    private void jump() {
+        transform.SetParent(null);
+        rigidbody.AddForce(Vector3.up * jumpForce);
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        transform.SetParent(collision.gameObject.transform);
+    }
+
+    void OnCollisionExit(Collision collision) {
+        transform.SetParent(null);
     }
 }   

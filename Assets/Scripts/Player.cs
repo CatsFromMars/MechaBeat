@@ -25,6 +25,11 @@ public class Player : _AbstractRhythmObject
 		public float dashSpeed = 1.0f;
 		public float dashStoppingSpeed = 0.1f;
 		private float currentDashTime;
+	
+	public int [] checkpoints;
+	private Vector3 checkpoint;
+	private int checkpointIndex=-1;
+
 	private bool canDoubleJump = false;
 	private bool canDash = true;
 
@@ -36,6 +41,16 @@ public class Player : _AbstractRhythmObject
 				animator = GetComponent<Animator> ();
 				characterController = GetComponent<CharacterController> ();
 				currentDashTime = maxDashTime;
+				checkpoint = new Vector3 (-10, 5, 0); //starting position of tezuka
+		}
+
+		void updateCheckpoint(){
+			if (checkpointIndex!=checkpoints.Length &&
+		    		gameObject.transform.position.x >= checkpoints [checkpointIndex + 1]) {
+				checkpointIndex++;
+				checkpoint.x=checkpoints[checkpointIndex];
+			}
+				
 		}
 
 		void FixedUpdate ()
@@ -43,6 +58,8 @@ public class Player : _AbstractRhythmObject
 				//Cache player input
 				horiz = Input.GetAxisRaw ("Horizontal");
 				vert = Input.GetAxisRaw ("Vertical");
+
+				updateCheckpoint ();
 
 		}
 
@@ -70,7 +87,7 @@ public class Player : _AbstractRhythmObject
 
 				//check if player fell to death
 				if (gameObject.transform.position.y < -10)
-						gameObject.transform.position = new Vector3 (-10, 5, 0);
+						gameObject.transform.position = checkpoint;
 
 		}
 		
@@ -160,8 +177,10 @@ public class Player : _AbstractRhythmObject
 		{
 				if (collision.collider.gameObject.tag == "Floor")
 					onFloor = true;
+				if (collision.collider.gameObject.tag == "Trampoline") 
+					animator.SetBool (hash.jumpBool, true);
 				if (collision.collider.gameObject.tag == "Harmful")
-					gameObject.transform.position = new Vector3 (-10, 5, 0);
+					gameObject.transform.position = checkpoint;
 				animator.SetBool (hash.jumpBool, false);
 				jumping = false; 
 
@@ -174,7 +193,7 @@ public class Player : _AbstractRhythmObject
 				if (collision.collider.gameObject.tag == "Trampoline") 
 						animator.SetBool (hash.jumpBool, true);
 				if (collision.collider.gameObject.tag == "Harmful")
-						gameObject.transform.position = new Vector3 (-10, 5, 0);
+						gameObject.transform.position = checkpoint;
 		
 		}
 

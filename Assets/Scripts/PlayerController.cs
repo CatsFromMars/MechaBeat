@@ -12,7 +12,7 @@ public class PlayerController : _AbstractRhythmObject
 		private int playerSpeed = 5;
 		private Vector3 moveDirection;
 		public bool canDoubleJump = false;
-		public float jumpForce = 1500f;          // Amount of force added when the player jumps.
+		public float jumpForce = 2500f;          // Amount of force added when the player jumps.
 		private float doubleJumpForce; // amount of force added when player jumps in middle of jump
 		public float moveForce = 365f;          // Amount of force added to move the player left and right.
 	
@@ -86,12 +86,12 @@ public class PlayerController : _AbstractRhythmObject
 				}
 		
 				if (Input.GetKeyDown (KeyCode.Space)) {
+						Debug.Log (rigidbody.velocity.y);
 						if (canDoubleJump) {
 								moveDirection = Vector3.up;
 								rigidbody.AddForce (moveDirection * jumpForce); 
 								canDoubleJump = false;
-						}
-						if (Mathf.Abs (rigidbody.velocity.y) < 0.05) {
+						} else if (Mathf.Abs (rigidbody.velocity.y) < 0.1) { // normal jump
 								//animator.SetBool(hash.jumpBool, true);
 								moveDirection = Vector3.up;
 								rigidbody.AddForce (moveDirection * jumpForce); 
@@ -103,7 +103,7 @@ public class PlayerController : _AbstractRhythmObject
 		
 				rigidbody.velocity = new Vector3 (
 			Mathf.Clamp (rigidbody.velocity.x, -maxSpeed, maxSpeed),
-			Mathf.Clamp (rigidbody.velocity.y, -maxSpeed, maxSpeed),
+			Mathf.Clamp (rigidbody.velocity.y, -2 * maxSpeed, maxSpeed),
 			0.0f);
 		
 				// Don't do dashing until jumping completely works

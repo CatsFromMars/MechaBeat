@@ -17,7 +17,7 @@ public class Gusty : _AbstractRhythmObject {
         controller = GameObject.FindGameObjectWithTag ("GameController");
         hash = controller.GetComponent<HashIDs>();
         animator = GetComponent<Animator>();
-        transform.position = waypoints[0].transform.position;
+        transform.position = new Vector3 (waypoints[0].transform.position.x, transform.position.y, transform.position.z);
     }
 
     void moveStart() {
@@ -35,9 +35,11 @@ public class Gusty : _AbstractRhythmObject {
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint].transform.position, step);
 
-        if(transform.position == waypoints[currentWaypoint].transform.position) { //If we reach a waypoint...
+		if(transform.position == new Vector3(waypoints[currentWaypoint].transform.position.x, 
+		                                     transform.position.y, transform.position.z)) { //If we reach a waypoint...
             currentWaypoint = (currentWaypoint+1) % waypoints.Length;             //Set the next waypoint
-            transform.LookAt(waypoints[currentWaypoint].transform.position);      //Look at the next waypoint
+			transform.LookAt(new Vector3(waypoints[currentWaypoint].transform.position.x, 
+			                             transform.position.y, transform.position.z));      //Look at the next waypoint
         }
     }
 

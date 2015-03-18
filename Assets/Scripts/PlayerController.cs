@@ -15,7 +15,7 @@ public class PlayerController : _AbstractRhythmObject
 		public float jumpForce = 2500f;          // Amount of force added when the player jumps.
 		private float doubleJumpForce; // amount of force added when player jumps in middle of jump
 		public float moveForce = 365f;          // Amount of force added to move the player left and right.
-	
+		
 		int beat;
 		private bool facingRight = true;
 		public float maxDashTime = 1.0f;
@@ -60,7 +60,8 @@ public class PlayerController : _AbstractRhythmObject
 		}
 	
 		private float maxSpeed = 5.0f;
-	
+		private int jumpCount = 0;
+
 		void MovePlayer ()
 		{
 				//Note: Player Movement Assumes InputAxisRaw and NOT InputAxis
@@ -84,19 +85,29 @@ public class PlayerController : _AbstractRhythmObject
 				if (horiz != 0) {
 						rigidbody.AddForce (Vector3.right * horiz * moveForce / 2);
 				}
-		
+				
+				if (Mathf.Abs (rigidbody.velocity.y) < 0.1)
+						jumpCount = 0;
+				
 				if (Input.GetKeyDown (KeyCode.Space)) {
-						Debug.Log (rigidbody.velocity.y);
-						if (canDoubleJump) {
+						if (jumpCount == 1 && canDoubleJump) {
 								moveDirection = Vector3.up;
 								rigidbody.AddForce (moveDirection * jumpForce); 
 								canDoubleJump = false;
-						} else if (Mathf.Abs (rigidbody.velocity.y) < 0.1) { // normal jump
+								jumpCount = 2;
+								
+						} else if (jumpCount == 0 && Mathf.Abs (rigidbody.velocity.y) < 0.1) { // normal jump
 								//animator.SetBool(hash.jumpBool, true);
 								moveDirection = Vector3.up;
 								rigidbody.AddForce (moveDirection * jumpForce); 
 								canDoubleJump = true;
-						} 
+								jumpCount = 1; 
+						} else if (jumpCount == 0 && rigidbody.velocity.y < -0.1) {
+								moveDirection = Vector3.up;
+								rigidbody.AddForce (moveDirection * jumpForce); 
+								canDoubleJump = false;
+								jumpCount = -1; 
+						}
 			
 			
 				}
@@ -112,7 +123,7 @@ public class PlayerController : _AbstractRhythmObject
 						currentDashTime = 0.0f;
 						canDash = false;
 				}
-		
+				
 				//  if (currentDashTime < maxDashTime && !canDash  && onBeat(0.1f))
 				if (currentDashTime < maxDashTime && !canDash) {
 						if (facingRight) {
@@ -131,9 +142,15 @@ public class PlayerController : _AbstractRhythmObject
 	
 		void OnCollisionEnter (Collision other)
 		{
+				if (other.collider.tag == "Moving") {
+						this.transform.parent = other.collider.gameObject.transform;
+				}
 		}
 	
 		void OnCollisionExit (Collision other)
 		{
+				if (other.collider.tag == "Moving") {
+						this.transform.parent = null;
+				}
 		}
 }   

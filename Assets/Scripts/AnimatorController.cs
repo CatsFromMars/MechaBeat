@@ -15,7 +15,7 @@ public class AnimatorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Mathf.Abs(rigidbody.velocity.x) > 0.2) animator.SetBool(hash.runningBool, true);
+		if(Mathf.Abs(rigidbody.velocity.x) > 0.1) animator.SetBool(hash.runningBool, true);
 		else animator.SetBool(hash.runningBool, false);
 	}
 }

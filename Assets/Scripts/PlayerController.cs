@@ -42,10 +42,10 @@ public class PlayerController : _AbstractRhythmObject {
     override protected void asyncUpdate() {
         //Actual Player Controller Jazz
         MovePlayer();
-        
-        if (gameObject.transform.position.y < -10) {
-            gameObject.transform.position = new Vector3(-10, 5, 0);
-        }
+
+				if (gameObject.transform.position.y < -400) {
+						gameObject.transform.position = new Vector3 (-10, 5, 0);
+				}
         
     }
     
@@ -97,18 +97,25 @@ public class PlayerController : _AbstractRhythmObject {
         //  if (currentDashTime < maxDashTime && !canDash  && onBeat(0.1f))
         if (currentDashTime < maxDashTime && !canDash) {
             if (facingRight) {
-                
-                moveDirection = new Vector3(dashSpeed, 0, 0);
-            } else {
-                moveDirection = new Vector3(-1.0f * dashSpeed, 0, 0);
-            }
-            currentDashTime += dashStoppingSpeed;
-            moveDirection.y = 0.0f;
-            rigidbody.AddForce(moveDirection);
-            transform.position = new Vector3(transform.position.x, transform.position.y, -1.0f); 
-        } else {
-            canDash = true;
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0f); 
-        }
-    }
+
+								moveDirection = new Vector3 (dashSpeed, 0, 0);
+						} else {
+								moveDirection = new Vector3 (-1.0f * dashSpeed, 0, 0);
+						}
+						currentDashTime += dashStoppingSpeed;
+						moveDirection.y = 0.0f;
+						rigidbody.AddForce (moveDirection);
+						transform.position = new Vector3 (transform.position.x, transform.position.y, -1.0f); 
+				} else {
+						canDash = true;
+						transform.position = new Vector3 (transform.position.x, transform.position.y, 0f); 
+				}
+		}
+		
+	void OnCollisionEnter (Collision collision)
+	{
+		if (collision.collider.gameObject.tag == "Harmful")
+			gameObject.transform.position = new Vector3 (-10,5,0);
+		
+	}
 }

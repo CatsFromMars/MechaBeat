@@ -91,6 +91,7 @@ Type and Modifiers | Field Name
 `public ColorTransition[]` | [`colorTransitions`](#colorTransitions)
 `public int[]` | [`indices`](#ChangeColors_indices)
 `public int` | [`offset`](#ChangeColors_offset)
+`public bool` | [`shared`](#shared)
 
 ####Field Descriptions
 <a name="colorTransitions"></a>
@@ -104,6 +105,10 @@ Type and Modifiers | Field Name
 <a name="ChangeColors_offset"></a>
 >**`public int offset`**  
 >If [`indices`](#ChangeColors_indices) has 0 elements, this is the index of [`colorTransitions`](#colorTransitions) array that you want to start at. Otherwise, this is the index of the [`indices`](#ChangeColors_indices) array that you want to start at.
+
+<a name="shared"></a>
+>**`public bool shared`**  
+>If true, this will change the shared material's color instead of creating a copy of the material. Use this if you want every object that uses the material to be changed in the same way. Changes to the shared material will stay after the game resets.
 
 ___
 ###<a name="MoveToPositions.cs"></a>[MoveToPositions.cs](./MoveToPositions.cs)
@@ -120,6 +125,7 @@ Type and Modifiers | Field Name
 `public int` | [`offset`](#MoveToPositions_offset)
 `public Vector3[]` | [`positions`](#positions)
 `public bool` | [`relative`](#MoveToPositions_relative)
+`public bool` | [`rigid`](#MoveToPositions_rigid)
 
 ####Field Descriptions
 <a name="MoveToPositions_indices">
@@ -128,7 +134,7 @@ Type and Modifiers | Field Name
 
 <a name="MoveToPositions_local"></a>
 >**`public bool local`**  
->If true, will transform relative to local coordinates instead of world coordinates.
+>If true, will transform relative to local coordinates instead of world coordinates. This field is ignored if [`rigid`](#MoveToPositions_rigid) is true.
 
 <a name="MoveToPositions_offset"></a>
 >**`public int offset`**  
@@ -142,6 +148,9 @@ Type and Modifiers | Field Name
 >**`public bool relative`**  
 >If true, the positions in the [`positions`](#positions) array are relative to the start position of the GameObject.
 
+<a name="MoveToPositions_rigid"></a>
+>**`public bool rigid`**  
+>If true, this will use rigid body transforms instead.
 ___
 ###<a name="RotateToEulers.cs"></a>[RotateToEulers.cs](./RotateToEulers.cs)
 This script is an example usage of [`_AbstractRhythmObject`](#_AbstractRhythmObject.cs). This rotates a GameObject through a list of Euler angle rotations, one at a time, in a round-robin style by default.
@@ -156,6 +165,7 @@ Type and Modifiers | Field Name
 `public int[]` | [`indices`](#RotateToEulers_indices)
 `public bool` | [`local`](#RotateToEulers_local)
 `public int` | [`offset`](#RotateToEulers_offset)
+`public bool` | [`rigid`](#RotateToEulers_rigid)
 `public bool` | [`spherical`](#spherical)
 
 ####Field Descriptions
@@ -169,11 +179,15 @@ Type and Modifiers | Field Name
 
 <a name="RotateToEulers_local"></a>
 >**`public bool local`**  
->If true, will transform relative to local coordinates instead of world coordinates.
+>If true, will transform relative to local coordinates instead of world coordinates. This field is ignored if [`rigid`](#RotateToEulers_rigid) is true.
 
 <a name="RotateToEulers_offset"></a>
 >**`public int offset`**  
 >If the [`indices`](#RotateToEulers_indices) array has 0 elements, this is the index of the [`eulerAngles`](#eulerAngles) that you want to start at. Otherwise, this is the index of the [`indices`](#RotateToEulers_indices) array that you want to start at.
+
+<a name="RotateToEulers_rigid"></a>
+>**`public bool rigid`**  
+>If true, this will use rigid body transforms instead.
 
 <a name="spherical"></a>
 >**`public bool spherical`**  

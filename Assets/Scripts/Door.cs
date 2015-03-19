@@ -12,7 +12,7 @@ public class Door : MonoBehaviour {
 		nextLevel = "Level 3";
 		loaded = false;
 		col = false;
-		gameController = GameObject.FindGameObjectWithTag ("gameController");
+		gameController = GameObject.FindGameObjectWithTag ("GameController");
 	}
 	
 	// Update is called once per frame

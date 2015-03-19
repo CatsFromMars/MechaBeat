@@ -115,7 +115,7 @@ public class PlayerController : _AbstractRhythmObject
 				}
         
 				if (jumpCount != 0 && currentJumpForce <= maxJumpForce) {
-						rigidbody.AddForce (Vector3.up * jumpInterval);
+						rigidbody.AddForce (Vector3.up * jumpInterval, ForceMode.Acceleration);
 						currentJumpForce += jumpInterval;
 				}
 				rigidbody.velocity = new Vector3 (

@@ -7,8 +7,9 @@ public class Windkey : MonoBehaviour {
 	private int coll;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		coll = 0;
+		gameController = GameObject.FindGameObjectWithTag ("GameController");
 	}
 	
 	// Update is called once per frame

@@ -86,7 +86,7 @@ public class Player : _AbstractRhythmObject
 				moveDirection.y -= gravity * Time.deltaTime;
 
 				//check if player fell to death
-				if (gameObject.transform.position.y < -10)
+				if (gameObject.transform.position.y < -400)
 						gameObject.transform.position = checkpoint;
 
 		}

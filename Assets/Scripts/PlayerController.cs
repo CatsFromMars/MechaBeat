@@ -54,7 +54,7 @@ public class PlayerController : _AbstractRhythmObject
 				//Actual Player Controller Jazz
 				MovePlayer ();
         
-				if (gameObject.transform.position.y < -10) {
+				if (gameObject.transform.position.y < -400) {
 						gameObject.transform.position = new Vector3 (-10, 5, 0);
 				}
         
@@ -144,4 +144,11 @@ public class PlayerController : _AbstractRhythmObject
 						transform.position = new Vector3 (transform.position.x, transform.position.y, 0f); 
 				}
 		}
+		
+	void OnCollisionEnter (Collision collision)
+	{
+		if (collision.collider.gameObject.tag == "Harmful")
+			gameObject.transform.position = new Vector3 (-10,5,0);
+		
+	}
 }

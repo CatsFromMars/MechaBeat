@@ -7,8 +7,7 @@ public class PlayerController : _AbstractRhythmObject
     
 		private GameObject controller;
 		private HashIDs hash;
-		//private Animator animator;
-    
+		private Animator animator;
 		private int playerSpeed = 5;
 		private Vector3 moveDirection;
 		private bool canDoubleJump = false;
@@ -31,7 +30,7 @@ public class PlayerController : _AbstractRhythmObject
 				moveDirection = Vector3.zero;
 				controller = GameObject.FindGameObjectWithTag ("GameController");
 				hash = controller.GetComponent<HashIDs> ();
-				//animator = GetComponent<Animator>();
+				animator = GetComponent<Animator>();
 				currentDashTime = maxDashTime;
 				doubleJumpForce = maxJumpForce * 0.6f;
 		}
@@ -45,9 +44,9 @@ public class PlayerController : _AbstractRhythmObject
 		override protected void rhythmUpdate (int beat)
 		{
 				//Sync player animations to the music
-				//if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
-				//animator.SetTrigger(hash.beatTrigger);
-				//}
+				if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
+				animator.SetTrigger(hash.beatTrigger);
+				}
 		}
     
 		override protected void asyncUpdate ()
@@ -92,7 +91,7 @@ public class PlayerController : _AbstractRhythmObject
 						jumpCount = 0;
 				}
                 
-				if (Input.GetKeyDown (KeyCode.Space)) {
+				if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.X)) {
 						if (jumpCount == 1 && canDoubleJump) {
 								moveDirection = Vector3.up;
 								currentJumpForce = 100.0f;

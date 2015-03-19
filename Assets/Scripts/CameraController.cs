@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		offset = new Vector3 (0, 0, -10);
+		offset = new Vector3 (0, 1.5f, -10);
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	

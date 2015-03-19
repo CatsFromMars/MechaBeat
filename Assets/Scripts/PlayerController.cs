@@ -12,7 +12,8 @@ public class PlayerController : _AbstractRhythmObject
 		private int playerSpeed = 5;
 		private Vector3 moveDirection;
 		public bool canDoubleJump = false;
-		public float jumpForce = 2500f;          // Amount of force added when the player jumps.
+		public float maxJumpForce = 1500f;          // Amount of force added when the player jumps.
+		private float currentJumpForce = 0f;
 		private float doubleJumpForce; // amount of force added when player jumps in middle of jump
 		public float moveForce = 365f;          // Amount of force added to move the player left and right.
 		
@@ -31,7 +32,7 @@ public class PlayerController : _AbstractRhythmObject
 				hash = controller.GetComponent<HashIDs> ();
 				//animator = GetComponent<Animator>();
 				currentDashTime = maxDashTime;
-				doubleJumpForce = jumpForce * 0.6f;
+				doubleJumpForce = maxJumpForce * 0.6f;
 		}
 	
 		private float gravity = 9.8f;
@@ -90,26 +91,33 @@ public class PlayerController : _AbstractRhythmObject
 						jumpCount = 0;
 				
 				if (Input.GetKeyDown (KeyCode.Space)) {
+						Debug.Log (rigidbody.velocity.y);
 						if (jumpCount == 1 && canDoubleJump) {
 								moveDirection = Vector3.up;
-								rigidbody.AddForce (moveDirection * jumpForce); 
 								canDoubleJump = false;
+								currentJumpForce = 100.0f;
 								jumpCount = 2;
 								
 						} else if (jumpCount == 0 && Mathf.Abs (rigidbody.velocity.y) < 0.1) { // normal jump
 								//animator.SetBool(hash.jumpBool, true);
 								moveDirection = Vector3.up;
-								rigidbody.AddForce (moveDirection * jumpForce); 
 								canDoubleJump = true;
+								currentJumpForce = 100.0f;
 								jumpCount = 1; 
 						} else if (jumpCount == 0 && rigidbody.velocity.y < -0.1) {
 								moveDirection = Vector3.up;
-								rigidbody.AddForce (moveDirection * jumpForce); 
 								canDoubleJump = false;
+								currentJumpForce = 100.0f;
 								jumpCount = -1; 
 						}
 			
 			
+				}
+				
+				if (jumpCount != 0 && currentJumpForce <= maxJumpForce) {
+			
+						rigidbody.AddForce (Vector3.up * 200.0f, ForceMode.Acceleration); 
+						currentJumpForce += 200.0f;
 				}
 		
 				rigidbody.velocity = new Vector3 (

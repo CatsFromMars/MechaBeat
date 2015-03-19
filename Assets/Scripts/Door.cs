@@ -35,7 +35,6 @@ public class Door : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other)
 	{
-		col = true;
 		if (other.collider.gameObject.tag == "Player") {
 			MasterKey m = gameController.GetComponent<MasterKey>();
 			col = true;

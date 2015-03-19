@@ -25,14 +25,14 @@ namespace Rhythmify {
 		}
 		
 		override protected void rhythmUpdate(int beat) {
-			//beat *= 2;
+			beat *= 2;
 			int size = scaleVectors.Length;
 			
 			if (size <= 1) {
 				return;
 			}
 			
-			int idx = 2*beat + offset;
+			int idx = beat + offset;
 			
 			Vector3 startScale;
 			Vector3 endScale;
@@ -48,7 +48,7 @@ namespace Rhythmify {
 				endScale = (scaleVectors [(idx + 1) % size]);
 			}
 			
-			StartCoroutine(scale(startScale, endScale, secondsPerBeat/2));
+			StartCoroutine(scale(startScale, endScale, secondsPerBeat));
 		}
 		
 		private IEnumerator scale(Vector3 startScale, Vector3 endScale, float duration) {

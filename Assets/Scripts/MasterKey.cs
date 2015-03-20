@@ -21,7 +21,7 @@ public class MasterKey : MonoBehaviour {
 	// Update is called once per frame
 	public void incrementCollectedKeys () {
 		collectedKeys++;
-		if (collectedKeys == numKeys) {
+		if (collectedKeys >= numKeys) {
 			//opendoor
 			canOpenDoor = true;
 		}

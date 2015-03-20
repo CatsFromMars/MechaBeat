@@ -15,6 +15,7 @@ public class GoodController : _AbstractRhythmObject {
     private float maxSpeed;
     private float movement;
     private bool jumping;
+    private Vector3 checkpoint;
 
     void Awake() {
         controller = GameObject.FindGameObjectWithTag("GameController");
@@ -47,6 +48,10 @@ public class GoodController : _AbstractRhythmObject {
             jumpsLeft--;
         }
         animate();
+
+        if (transform.position.y < -10) {
+            resetToCheckPoint();
+        }
     }
 
     private void animate() {
@@ -83,5 +88,15 @@ public class GoodController : _AbstractRhythmObject {
         if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
             animator.SetTrigger(hash.beatTrigger);
         }
+    }
+
+    public void setCheckPoint(Vector3 v3) {
+        checkpoint = v3;
+    }
+
+    public void resetToCheckPoint() {
+        transform.position = checkpoint;
+
+        rigidbody.velocity = Vector3.down;
     }
 }

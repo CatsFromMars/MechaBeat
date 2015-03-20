@@ -42,7 +42,7 @@ public class GoodController : _AbstractRhythmObject {
     override protected void asyncUpdate() {
         movement = Input.GetAxis("Horizontal") * moveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0) {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(0.1f)) {
             jumping = true;
             jumpsLeft--;
         }
@@ -61,12 +61,12 @@ public class GoodController : _AbstractRhythmObject {
             }
             animator.SetBool(hash.runningBool, true);
         }
-        
-        if (rigidbody.velocity.y > 0 && transform.parent == null) {
+        if (rigidbody.velocity.y > 0.0001 && transform.parent == null) {
             animator.SetBool(hash.jumpBool, true);
-        }
-        else if (rigidbody.velocity.y < 0 && transform.parent == null) {
+        } else if (rigidbody.velocity.y < -0.0001 && transform.parent == null) {
             //Falling animation
+        } else {
+            animator.SetBool(hash.jumpBool, false);
         }
     }
 

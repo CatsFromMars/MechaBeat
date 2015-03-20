@@ -5,9 +5,9 @@ public class RotateClockHand : MonoBehaviour {
 
 	private bool canRotate;
 	public GameObject clockhand;
-	private bool position1;
+	public bool position1;
 	public int rotationAngle;
-	// Use this for initialization
+	// Use this for initializationad
 	void Start () {
 		canRotate = true;
 		position1 = true;
@@ -18,25 +18,30 @@ public class RotateClockHand : MonoBehaviour {
 	
 	}
 
+	public void rotateHand()
+	{
+		if(canRotate)
+		{
+			if(position1)
+			{
+
+				clockhand.transform.Rotate(Vector3.up*rotationAngle);
+				canRotate = false;
+				position1 = !position1;
+			}
+			else
+			{
+				clockhand.transform.Rotate(Vector3.up*-rotationAngle);
+				canRotate = false;
+				position1 = !position1;
+			}
+		}
+	}
+
 	void OnCollisionEnter(Collision other)
 	{
 		if (other.collider.gameObject.tag == "Player") {
-			if(canRotate)
-			{
-				if(position1)
-				{
-					clockhand.transform.Rotate(Vector3.up*rotationAngle);
-					canRotate = false;
-					position1 = !position1;
-				}
-				else
-				{
-					clockhand.transform.Rotate(Vector3.up*-rotationAngle);
-					canRotate = false;
-					position1 = !position1;
-				}
-			}
-
+			rotateHand();
 			
 		}
 	}

@@ -16,8 +16,6 @@ public class GoodController : _AbstractRhythmObject {
     private float movement;
 
     private bool jumping;
-    private bool inAir;
-    private bool touchedFloor;
 
     void FixedUpdate() {
         Vector3 nextVelocity = new Vector3(movement, rigidbody.velocity.y, 0);

@@ -4,16 +4,18 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
 	public GameObject player;
-	private Vector3 offset;
+	public Vector3 offset = new Vector3(0, 1.5f, -10);
+
+    public int minX, minY, maxX, maxY;
 
 	// Use this for initialization
 	void Awake () {
-		offset = new Vector3 (0, 1.5f, -10);
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
-		transform.position = player.transform.position + offset;
+		Vector3 temp = player.transform.position + offset;
+        transform.position = new Vector3(Mathf.Clamp(temp.x, minX, maxX), Mathf.Clamp(temp.y, minY, maxY), -10);
 	}
 }

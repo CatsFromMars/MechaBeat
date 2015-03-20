@@ -8,6 +8,8 @@ public class GoodController : _AbstractRhythmObject {
     public float jumpHeight;
     public float moveSpeed;
     public float fallSpeed;
+    public float accuracy;
+
     private GameObject controller;
     private HashIDs hash;
     private Animator animator;
@@ -43,7 +45,7 @@ public class GoodController : _AbstractRhythmObject {
     override protected void asyncUpdate() {
         movement = Input.GetAxis("Horizontal") * moveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(0.1f)) {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(accuracy)) {
             jumping = true;
             jumpsLeft--;
         }

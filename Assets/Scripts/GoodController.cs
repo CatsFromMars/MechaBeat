@@ -61,7 +61,6 @@ public class GoodController : _AbstractRhythmObject {
             }
             animator.SetBool(hash.runningBool, true);
         }
-
         if (rigidbody.velocity.y > 0.0001 && transform.parent == null) {
             animator.SetBool(hash.jumpBool, true);
         } else if (rigidbody.velocity.y < -0.0001 && transform.parent == null) {

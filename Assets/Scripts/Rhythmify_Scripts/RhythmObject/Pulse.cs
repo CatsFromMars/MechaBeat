@@ -14,16 +14,6 @@ namespace Rhythmify {
 		
 		private Rigidbody rigidBody;
 		
-		override protected void init() {
-			if (rigid) {
-				rigidBody = gameObject.GetComponent<Rigidbody>();
-				if (rigidBody == null) {
-					Debug.LogError("The GameObject " + gameObject + " has no RigidBody component attached!");
-					Debug.Break();
-				}
-			}
-		}
-		
 		override protected void rhythmUpdate(int beat) {
 			beat *= 2;
 			int size = scaleVectors.Length;

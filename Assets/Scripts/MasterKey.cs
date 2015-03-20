@@ -9,7 +9,7 @@ public class MasterKey : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		numKeys = 1;
+		//numKeys = 1;
 		collectedKeys = 0;
 		canOpenDoor = false;
 	}

@@ -24,6 +24,7 @@ public class RotateClockHand1 : MonoBehaviour {
 			if(canRotate)
 			{
 				r.rotateHand();
+				canRotate = false;
 			}
 
 			

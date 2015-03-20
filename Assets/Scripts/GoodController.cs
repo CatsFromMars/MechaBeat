@@ -4,30 +4,23 @@ using Rhythmify;
 
 public class GoodController : _AbstractRhythmObject {
 
-	private GameObject controller;
-	private HashIDs hash;
-	private Animator animator;
-
     public int numJumps;
     public float jumpHeight;
-
     public float moveSpeed;
     public float fallSpeed;
-
-
+    private GameObject controller;
+    private HashIDs hash;
+    private Animator animator;
     private int jumpsLeft;
     private float maxSpeed;
     private float movement;
-
     private bool jumping;
-    private bool inAir;
-    private bool touchedFloor;
 
-	void Awake() {
-		controller = GameObject.FindGameObjectWithTag("GameController");
-		hash = controller.GetComponent<HashIDs>();
-		animator = GetComponent<Animator>();
-	}
+    void Awake() {
+        controller = GameObject.FindGameObjectWithTag("GameController");
+        hash = controller.GetComponent<HashIDs>();
+        animator = GetComponent<Animator>();
+    }
 
     void FixedUpdate() {
         Vector3 nextVelocity = new Vector3(movement, rigidbody.velocity.y, 0);
@@ -35,7 +28,6 @@ public class GoodController : _AbstractRhythmObject {
         if (jumping) {
             nextVelocity.y = jumpHeight;
             jumping = false;
-			animator.SetBool(hash.jumpBool, false);
         }
 
         rigidbody.velocity = nextVelocity;
@@ -50,25 +42,36 @@ public class GoodController : _AbstractRhythmObject {
     override protected void asyncUpdate() {
         movement = Input.GetAxis("Horizontal") * moveSpeed;
 
-		if (movement > 0) {
-			transform.rotation = Quaternion.Euler(0, 90, 0);
-			animator.SetBool(hash.runningBool, true);
-		} else if (movement < 0) {
-			transform.rotation = Quaternion.Euler(0, -90, 0);
-			animator.SetBool(hash.runningBool, true);
-		} else if (movement == 0) {
-			animator.SetBool(hash.runningBool, false);
-		}
-
         if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0) {
             jumping = true;
-			animator.SetBool(hash.jumpBool, true);
             jumpsLeft--;
+        }
+        animate();
+    }
+
+    private void animate() {
+        if (Mathf.Abs(movement) < 0.0001f) {
+            animator.SetBool(hash.runningBool, false);
+        } else {
+            if (movement > 0) {
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
+            else {
+                transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
+            animator.SetBool(hash.runningBool, true);
+        }
+        
+        if (rigidbody.velocity.y > 0 && transform.parent == null) {
+            animator.SetBool(hash.jumpBool, true);
+        }
+        else if (rigidbody.velocity.y < 0 && transform.parent == null) {
+            //Falling animation
         }
     }
 
     void OnCollisionEnter(Collision collision) {
-        ContactPoint contact = collision.contacts[0];
+        ContactPoint contact = collision.contacts [0];
 
         if (Vector3.Dot(contact.normal, Vector3.up) > 0.70710678118) {
             jumpsLeft = numJumps;
@@ -76,9 +79,9 @@ public class GoodController : _AbstractRhythmObject {
     }
 
     override protected void rhythmUpdate(int beat) {
-		//Sync player animations to the music
-		if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
-			animator.SetTrigger(hash.beatTrigger);
-		}
-	}
+        //Sync player animations to the music
+        if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
+            animator.SetTrigger(hash.beatTrigger);
+        }
+    }
 }

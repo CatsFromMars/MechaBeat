@@ -48,10 +48,6 @@ public class GoodController : _AbstractRhythmObject {
             jumpsLeft--;
         }
         animate();
-
-        if (transform.position.y < -10) {
-            resetToCheckPoint();
-        }
     }
 
     private void animate() {

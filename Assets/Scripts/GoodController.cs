@@ -62,10 +62,11 @@ public class GoodController : _AbstractRhythmObject {
             animator.SetBool(hash.runningBool, true);
         }
         
-        if (rigidbody.velocity.y > 0 && transform.parent == null) {
+        if (rigidbody.velocity.y > 0.3 && transform.parent == null) {
             animator.SetBool(hash.jumpBool, true);
         }
         else if (rigidbody.velocity.y < 0 && transform.parent == null) {
+			animator.SetBool(hash.jumpBool, false);
             //Falling animation
         }
     }

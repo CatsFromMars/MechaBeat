@@ -9,7 +9,6 @@ public class Door : MonoBehaviour {
 	public bool col;
 	// Use this for initialization
 	void Awake () {
-		nextLevel = "Level 3";
 		loaded = false;
 		col = false;
 		gameController = GameObject.FindGameObjectWithTag ("GameController");

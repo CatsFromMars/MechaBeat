@@ -50,6 +50,7 @@ public class GoodController : _AbstractRhythmObject {
             jumpsLeft--;
         }
         animate();
+        Debug.Log(jumpsLeft);
     }
 
     private void animate() {
@@ -77,7 +78,7 @@ public class GoodController : _AbstractRhythmObject {
         ContactPoint contact = collision.contacts [0];
 
         if (Vector3.Dot(contact.normal, Vector3.up) > 0.70710678118) {
-            jumpsLeft = numJumps;
+            resetJumps();
         }
     }
 
@@ -96,5 +97,9 @@ public class GoodController : _AbstractRhythmObject {
         transform.position = checkpoint;
 
         rigidbody.velocity = Vector3.down;
+    }
+
+    public void resetJumps() {
+        jumpsLeft = numJumps;
     }
 }

@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour {
 	public GameObject player;
 	public Vector3 offset = new Vector3(0, 1.5f, -10);
 
-    public int minX, minY, maxX, maxY;
+    public float minX, minY, maxX, maxY;
 
 	// Use this for initialization
 	void Awake () {

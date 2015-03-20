@@ -17,22 +17,22 @@ public class RotateClockHand1 : MonoBehaviour {
 	
 	}
 
-	void OnCollisionEnter(Collision other)
-	{
-		if (other.collider.gameObject.tag == "Player") {
-			RotateClockHand r = partnerTrampoline.GetComponent<RotateClockHand>();
-			if(canRotate)
-			{
-				r.rotateHand();
-				canRotate = false;
-			}
-
-			
-		}
-	}
-
-	void OnCollisionExit(Collision other)
-	{
-		canRotate = true;
-	}
+//	void OnCollisionEnter(Collision other)
+//	{
+//		if (other.collider.gameObject.tag == "Player") {
+//			RotateClockHand r = partnerTrampoline.GetComponent<RotateClockHand>();
+//			if(canRotate)
+//			{
+//				r.rotateHand();
+//				canRotate = false;
+//			}
+//
+//			
+//		}
+//	}
+//
+//	void OnCollisionExit(Collision other)
+//	{
+//		canRotate = true;
+//	}
 }

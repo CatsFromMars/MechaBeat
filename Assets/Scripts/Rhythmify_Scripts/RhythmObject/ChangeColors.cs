@@ -15,14 +15,14 @@ namespace Rhythmify {
         public int offset;
         public bool shared;
 
-        override protected void rhythmUpdate(int beat) {
+        override protected void rhythmUpdate() {
             int size = colorTransitions.Length;
 
             if (size < 0) {
                 return;
             }
 
-            int idx = beat + offset;
+            int idx = getBeat() + offset;
             if (indices.Length > 0) {
                 idx = indices [idx % indices.Length];
             }

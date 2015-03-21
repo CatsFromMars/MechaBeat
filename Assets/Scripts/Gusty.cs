@@ -43,9 +43,9 @@ public class Gusty : _AbstractRhythmObject {
         }
     }
 
-    override protected void rhythmUpdate (int beat) {
+    override protected void rhythmUpdate() {
 
-        if(beat%6 == 0) {
+        if(getBeat()%6 == 0) {
             animator.SetTrigger(hash.attackTrigger); //Attack every 6th beat.
         }
         else {

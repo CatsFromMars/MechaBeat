@@ -5,33 +5,20 @@ using Rhythmify;
 
 public class Pulse : _AbstractRhythmObject {
     public Vector3[] scaleVectors;
-    public int[] indices;
-    public int offset;
+    public int modulo;
         
-    override protected void rhythmUpdate(int beat) {
-        beat *= 2;
+    override protected void rhythmUpdate() {
         int size = scaleVectors.Length;
             
-        if (size <= 1) {
+        if (size < 1 || modulo < 1 || getBeat() % modulo != 0) {
             return;
         }
+        
+        int idx = getBeat() / modulo;
             
-        int idx = beat + offset;
-            
-        Vector3 startScale;
-        Vector3 endScale;
-            
-        if (indices.Length > 0) {
-            int idxA = indices [idx % indices.Length];
-            int idxB = indices [(idx + 1) % indices.Length];
-            startScale = (scaleVectors [idxA % size]);
-            endScale = (scaleVectors [idxB % size]);
-        } else {
-            startScale = (scaleVectors [idx % size]);
-            endScale = (scaleVectors [(idx + 1) % size]);
-        }
-            
-        StartCoroutine(scale(startScale, endScale, secondsPerBeat));
+        Vector3 endScale = scaleVectors[idx % size];
+
+        StartCoroutine(scale(new Vector3(1,1,1), endScale, secondsPerBeat * modulo));
     }
         
     private IEnumerator scale(Vector3 startScale, Vector3 endScale, float duration) {

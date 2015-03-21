@@ -41,14 +41,14 @@ namespace Rhythmify {
             }
         }
 
-        override protected void rhythmUpdate(int beat) {
+        override protected void rhythmUpdate() {
             int size = positions.Length;
         
             if (size <= 1) {
                 return;
             }
             
-            int idx = beat + offset;
+            int idx = getBeat() + offset;
             if (indices.Length > 0) {
                 int idxA = indices[idx % indices.Length];
                 int idxB = indices[(idx + 1) % indices.Length];

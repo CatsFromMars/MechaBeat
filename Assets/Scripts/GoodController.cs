@@ -45,7 +45,7 @@ public class GoodController : _AbstractRhythmObject {
     override protected void asyncUpdate() {
         movement = Input.GetAxis("Horizontal") * moveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(accuracy)) {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
             jumping = true;
             jumpsLeft--;
         }
@@ -81,7 +81,7 @@ public class GoodController : _AbstractRhythmObject {
         }
     }
 
-    override protected void rhythmUpdate(int beat) {
+    override protected void rhythmUpdate() {
         //Sync player animations to the music
         if (animator.GetCurrentAnimatorStateInfo(0).nameHash == hash.idleState) {
             animator.SetTrigger(hash.beatTrigger);

@@ -27,14 +27,14 @@ namespace Rhythmify {
             }
         }
 
-        override protected void rhythmUpdate(int beat) {
+        override protected void rhythmUpdate() {
             int size = eulerAngles.Length;
         
             if (size <= 1) {
                 return;
             }
-        
-            int idx = beat + offset;
+            
+            int idx = getBeat() + offset;
 
             Quaternion startRot;
             Quaternion endRot;

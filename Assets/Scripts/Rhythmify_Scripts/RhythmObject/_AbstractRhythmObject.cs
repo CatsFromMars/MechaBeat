@@ -13,8 +13,8 @@ namespace Rhythmify {
         protected float secondsPerBeat;
         private AudioSource audioSource;
         private AudioClip audioClip;
-        private int lastBeatUpdate = -1;
         private int beatCount = 0;
+        private int lastBeatUpdate = -1;
 
         public void Start() {
             GameObject[] bgmContainers = GameObject.FindGameObjectsWithTag("Rhythmify_Music");
@@ -45,10 +45,15 @@ namespace Rhythmify {
         
             if (beat != lastBeatUpdate) {
                 lastBeatUpdate = beat;
-                rhythmUpdate(beatCount++);
+                rhythmUpdate();
+                beatCount++;
             }
 
             asyncUpdate();
+        }
+
+        public int getBeat() {
+            return beatCount;
         }
     
         protected bool onBeat(float deltaSeconds) {
@@ -63,6 +68,6 @@ namespace Rhythmify {
         protected virtual void asyncUpdate() {
         }
 
-        protected abstract void rhythmUpdate(int beat);
+        protected abstract void rhythmUpdate();
     }
 }

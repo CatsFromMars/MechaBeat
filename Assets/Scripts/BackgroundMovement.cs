@@ -6,14 +6,14 @@ public class BackgroundMovement : _AbstractRhythmObject {
     public Vector2[] steps;
     public int[] indices;
 
-    override protected void rhythmUpdate(int beat) {
+    override protected void rhythmUpdate() {
         int size = steps.Length;
 
         if (size < 1) {
             return;
         }
-
-        int idx = beat;
+        
+        int idx = getBeat();
         if (indices.Length > 0) {
             idx = indices[idx % indices.Length];
         }

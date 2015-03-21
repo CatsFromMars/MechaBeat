@@ -50,7 +50,6 @@ public class GoodController : _AbstractRhythmObject {
             jumpsLeft--;
         }
         animate();
-        Debug.Log(jumpsLeft);
     }
 
     private void animate() {

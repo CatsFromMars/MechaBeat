@@ -17,6 +17,7 @@ public class GoodController : _AbstractRhythmObject {
     private float maxSpeed;
     private float movement;
     private bool jumping;
+    private bool dodging;
     private Vector3 checkpoint;
 
     void Awake() {
@@ -31,6 +32,11 @@ public class GoodController : _AbstractRhythmObject {
         if (jumping) {
             nextVelocity.y = jumpHeight;
             jumping = false;
+        }
+
+        if (dodging) {
+            nextVelocity.x *= 2;
+            rigidbody.AddForce(Vector3.up * fallSpeed);
         }
 
         rigidbody.velocity = nextVelocity;
@@ -49,25 +55,39 @@ public class GoodController : _AbstractRhythmObject {
             jumping = true;
             jumpsLeft--;
         }
+
+        if (Input.GetKeyDown(KeyCode.Z) && !dodging && onBeat(accuracy)) {
+            StartCoroutine(dodgeSequence(secondsPerBeat/2));
+        }
         animate();
     }
 
+    private IEnumerator dodgeSequence(float time) {
+        dodging = true;
+        Debug.Log("Dodging");
+        yield return new WaitForSeconds(time);
+        dodging = false;
+        Debug.Log("Not Dodging");
+        yield return null;
+    }
+
     private void animate() {
-        if (Mathf.Abs(movement) < 0.0001f) {
-            animator.SetBool(hash.runningBool, false);
+        if (dodging) {
+
         } else {
-            if (movement > 0) {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
+            if (Mathf.Abs(movement) < 0.0001f) {
+                animator.SetBool(hash.runningBool, false);
+            } else {
+                if (movement > 0) {
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                } else {
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                }
+                animator.SetBool(hash.runningBool, true);
             }
-            else {
-                transform.rotation = Quaternion.Euler(0, -90, 0);
-            }
-            animator.SetBool(hash.runningBool, true);
         }
         if (rigidbody.velocity.y > 0.0001 && transform.parent == null) {
             animator.SetBool(hash.jumpBool, true);
-        } else if (rigidbody.velocity.y < -0.0001 && transform.parent == null) {
-            //Falling animation
         } else {
             animator.SetBool(hash.jumpBool, false);
         }
@@ -92,10 +112,11 @@ public class GoodController : _AbstractRhythmObject {
         checkpoint = v3;
     }
 
-    public void resetToCheckPoint() {
-        transform.position = checkpoint;
-
-        rigidbody.velocity = Vector3.down;
+    public void resetToCheckPoint(bool canDodge) {
+        if (!(canDodge && dodging)) {
+            transform.position = checkpoint;
+            rigidbody.velocity = Vector3.zero;
+        }
     }
 
     public void resetJumps() {

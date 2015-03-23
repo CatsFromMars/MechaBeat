@@ -6,11 +6,12 @@ using Rhythmify;
 public class Pulse : _AbstractRhythmObject {
     public Vector3[] scaleVectors;
     public int modulo;
+    public int moduloBeat;
         
     override protected void rhythmUpdate() {
         int size = scaleVectors.Length;
             
-        if (size < 1 || modulo < 1 || getBeat() % modulo != 0) {
+        if (size < 1 || modulo < 1 || getBeat() % modulo != moduloBeat) {
             return;
         }
         

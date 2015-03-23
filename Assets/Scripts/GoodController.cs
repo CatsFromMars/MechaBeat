@@ -42,6 +42,10 @@ public class GoodController : _AbstractRhythmObject {
         rigidbody.velocity = nextVelocity;
 
         rigidbody.AddForce(Vector3.down * fallSpeed);
+
+        if (rigidbody.velocity.y < -20) {
+            rigidbody.velocity = new Vector3(rigidbody.velocity.x, -20, 0);
+        }
     }
 
     override protected void init() {
@@ -53,11 +57,12 @@ public class GoodController : _AbstractRhythmObject {
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
             jumping = true;
+
             jumpsLeft--;
         }
 
-        if (Input.GetKeyDown(KeyCode.Z) && !dodging && onBeat(accuracy)) {
-            StartCoroutine(dodgeSequence(secondsPerBeat/2));
+        if (Input.GetKeyDown(KeyCode.Z) && !dodging && onBeat(accuracy) && getBeat() % 2 == 1) {
+            StartCoroutine(dodgeSequence(secondsPerBeat));
         }
         animate();
     }

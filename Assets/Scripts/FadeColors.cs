@@ -5,6 +5,7 @@ using Rhythmify;
 public class FadeColors : _AbstractRhythmObject {
     public Color[] fadeColors;
     public int modulo;
+    public int moduloBeat;
 
     private Color startColor;
 
@@ -15,7 +16,7 @@ public class FadeColors : _AbstractRhythmObject {
     override protected void rhythmUpdate() {
         int size = fadeColors.Length;
         
-        if (size < 1 || modulo < 1 || getBeat() % modulo != 0) {
+        if (size < 1 || modulo < 1 || getBeat() % modulo != moduloBeat) {
             return;
         }
         

@@ -4,31 +4,39 @@ using System.Collections;
 public class MasterKey : MonoBehaviour {
 
 	public int numKeys;
-	public int collectedKeys;
+	private int collectedKeys;
 	private bool canOpenDoor;
 
-	// Use this for initialization
+    private GameObject keyProgress;
+    private GameObject keyProgressEffect;
+
 	void Start () {
-		//numKeys = 1;
 		collectedKeys = 0;
 		canOpenDoor = false;
+
+        GameObject guiCamera = GameObject.FindGameObjectWithTag("GUI");
+        keyProgress = guiCamera.transform.FindChild("Key Info/Key Progress").gameObject;
+        keyProgressEffect = guiCamera.transform.FindChild("Key Info Effect/Key Progress").gameObject;
+
+        updateKeyProgress();
 	}
 
-	void update(){
-		
-	}
+    private void updateKeyProgress() {
+        string progress = collectedKeys + "/" + numKeys;
+        keyProgress.GetComponent<TextMesh>().text = progress;
+        keyProgressEffect.GetComponent<TextMesh>().text = progress;
+    }
 	
-	// Update is called once per frame
 	public void incrementCollectedKeys () {
-		collectedKeys++;
-		if (collectedKeys >= numKeys) {
-			//opendoor
-			canOpenDoor = true;
-		}
+        collectedKeys++;
+        updateKeyProgress();
 	}
 
-	public bool canOpen()
-	{
-		return canOpenDoor;
+    public int getNumKeys() {
+        return collectedKeys;
+    }
+
+	public bool canOpen() {
+        return collectedKeys >= numKeys;
 	}
 }

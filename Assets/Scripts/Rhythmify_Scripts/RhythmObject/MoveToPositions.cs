@@ -14,6 +14,7 @@ namespace Rhythmify {
         public bool local;
         public bool relative;
         public bool rigid;
+        public bool spherical;
 
         private Vector3 startPosition;
         private Rigidbody rigidBody;
@@ -64,14 +65,24 @@ namespace Rhythmify {
             if (rigid && rigidBody != null) {
                 while (Time.time <= startTime + duration) {
                     float lerpPercent = Mathf.Clamp01((Time.time - startTime) / duration);
-					rigidBody.MovePosition(Vector3.Lerp(startPos, endPos, lerpPercent) + startPosition);
+                    if (spherical) {
+                        rigidBody.MovePosition(Vector3.Slerp(startPos, endPos, lerpPercent) + startPosition);
+                    }
+                    else {
+                        rigidBody.MovePosition(Vector3.Lerp(startPos, endPos, lerpPercent) + startPosition);
+                    }
                     yield return null;
                 }
             }
             else if (local) {
                 while (Time.time <= startTime + duration) {
                     float lerpPercent = Mathf.Clamp01((Time.time - startTime) / duration);
-                    transform.localPosition = Vector3.Lerp(startPos, endPos, lerpPercent);
+                    if (spherical) {
+                        transform.localPosition = Vector3.Slerp(startPos, endPos, lerpPercent);
+                    }
+                    else {
+                        transform.localPosition = Vector3.Lerp(startPos, endPos, lerpPercent);
+                    }
                     transform.localPosition += startPosition;
                     yield return null;
                 }
@@ -79,7 +90,12 @@ namespace Rhythmify {
             else {
                 while (Time.time <= startTime + duration) {
                     float lerpPercent = Mathf.Clamp01((Time.time - startTime) / duration);
-                    transform.position = Vector3.Lerp(startPos, endPos, lerpPercent);
+                    if (spherical) {
+                        transform.position = Vector3.Slerp(startPos, endPos, lerpPercent);
+                    }
+                    else {
+                        transform.position = Vector3.Lerp(startPos, endPos, lerpPercent);
+                    }
                     transform.position += startPosition;
                     yield return null;
                 }

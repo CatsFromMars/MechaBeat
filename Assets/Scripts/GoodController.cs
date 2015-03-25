@@ -24,6 +24,7 @@ public class GoodController : _AbstractRhythmObject {
         controller = GameObject.FindGameObjectWithTag("GameController");
         hash = controller.GetComponent<HashIDs>();
         animator = GetComponent<Animator>();
+		//particleSystem.emissionRate = 0;
     }
 
     void FixedUpdate() {
@@ -57,7 +58,7 @@ public class GoodController : _AbstractRhythmObject {
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
             jumping = true;
-
+			//particleSystem.Emit(10);  
             jumpsLeft--;
         }
 

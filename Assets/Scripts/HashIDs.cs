@@ -13,6 +13,7 @@ public class HashIDs : MonoBehaviour {
     public int floorBool;
     public int jumpBool;
     public int attackTrigger;
+	public int dodgeBool;
 
 	// Use this for initialization
     void Awake () {
@@ -20,6 +21,7 @@ public class HashIDs : MonoBehaviour {
         jumpState = Animator.StringToHash("Base Layer.Jump");
         fallingState = Animator.StringToHash("Base Layer.Fall");
 
+		dodgeBool = Animator.StringToHash("Dodge");
         floorBool = Animator.StringToHash("onFloor");
         runningBool = Animator.StringToHash("Running");
         beatTrigger = Animator.StringToHash("Beat");

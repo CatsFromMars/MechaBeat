@@ -55,7 +55,7 @@ public class GoodController : _AbstractRhythmObject {
     override protected void asyncUpdate() {
         movement = Input.GetAxis("Horizontal") * moveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
+		if (Input.GetKeyDown(KeyCode.X) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
             jumping = true;
 
             jumpsLeft--;
@@ -69,17 +69,21 @@ public class GoodController : _AbstractRhythmObject {
 
     private IEnumerator dodgeSequence(float time) {
         dodging = true;
+		animator.SetBool(hash.dodgeBool, true);
         Debug.Log("Dodging");
         yield return new WaitForSeconds(time);
         dodging = false;
+		animator.SetBool(hash.dodgeBool, false);
         Debug.Log("Not Dodging");
         yield return null;
     }
 
     private void animate() {
         if (dodging) {
+			//animator.SetBool(hash.dodgeBool, true);
 
         } else {
+			//animator.SetBool(hash.dodgeBool, false);
             if (Mathf.Abs(movement) < 0.0001f) {
                 animator.SetBool(hash.runningBool, false);
             } else {

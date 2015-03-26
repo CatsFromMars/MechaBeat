@@ -24,7 +24,7 @@ public class GoodController : _AbstractRhythmObject {
         controller = GameObject.FindGameObjectWithTag("GameController");
         hash = controller.GetComponent<HashIDs>();
         animator = GetComponent<Animator>();
-		//particleSystem.emissionRate = 0;
+		particleSystem.emissionRate = 0;
     }
 
     void FixedUpdate() {
@@ -37,12 +37,14 @@ public class GoodController : _AbstractRhythmObject {
 
         if (dodging) {
             nextVelocity.x *= 2;
-            rigidbody.AddForce(Vector3.up * fallSpeed);
+            nextVelocity.y = 0;
         }
 
         rigidbody.velocity = nextVelocity;
 
-        rigidbody.AddForce(Vector3.down * fallSpeed);
+        if (!dodging) {
+            rigidbody.AddForce(Vector3.down * fallSpeed);
+        }
 
         if (rigidbody.velocity.y < -20) {
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, -20, 0);
@@ -56,13 +58,13 @@ public class GoodController : _AbstractRhythmObject {
     override protected void asyncUpdate() {
         movement = Input.GetAxis("Horizontal") * moveSpeed;
 
-        if (!dodging && Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
+		if (Input.GetKeyDown(KeyCode.X) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
             jumping = true;
-			//particleSystem.Emit(10);  
+			particleSystem.Emit(10);  
             jumpsLeft--;
         }
 
-        if (jumpsLeft > 0 && Input.GetKeyDown(KeyCode.Z) && !dodging && onBeat(accuracy) && getBeat() % 2 == 1) {
+        if (Input.GetKeyDown(KeyCode.Z) && !dodging && onBeat(accuracy) && getBeat() % 2 == 1) {
             StartCoroutine(dodgeSequence(secondsPerBeat));
         }
         animate();
@@ -70,23 +72,25 @@ public class GoodController : _AbstractRhythmObject {
 
     private IEnumerator dodgeSequence(float time) {
         dodging = true;
+		animator.SetBool(hash.dodgeBool, true);
         yield return new WaitForSeconds(time);
         dodging = false;
+		animator.SetBool(hash.dodgeBool, false);
+        resetJumps();
         yield return null;
     }
 
     private void animate() {
-        if (dodging) {
+        if (movement > 0) {
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        } else if (movement < 0) {
+            transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
 
-        } else {
+        if (!dodging) {
             if (Mathf.Abs(movement) < 0.0001f) {
                 animator.SetBool(hash.runningBool, false);
             } else {
-                if (movement > 0) {
-                    transform.rotation = Quaternion.Euler(0, 90, 0);
-                } else {
-                    transform.rotation = Quaternion.Euler(0, -90, 0);
-                }
                 animator.SetBool(hash.runningBool, true);
             }
         }

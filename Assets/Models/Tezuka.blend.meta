@@ -54,7 +54,7 @@ ModelImporter:
     4300000: Cube
     4300002: Robe
     7400000: Run
-    7400002: ArmatureAction
+    7400002: Dodge
     7400004: IdleStill
     7400006: IdleBeat
     7400008: Jump
@@ -454,6 +454,80 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hip
+        weight: 1
+      - path: Armature/Hip/Thigh_L
+        weight: 1
+      - path: Armature/Hip/Thigh_L/Shin_L
+        weight: 1
+      - path: Armature/Hip/Thigh_L/Shin_L/Foot_L
+        weight: 1
+      - path: Armature/Hip/Thigh_R
+        weight: 1
+      - path: Armature/Hip/Thigh_R/Shin_R
+        weight: 1
+      - path: Armature/Hip/Thigh_R/Shin_R/Foot_R
+        weight: 1
+      - path: Armature/Hip/Tummy
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Head
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_L/UpperArm_L
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_L/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_R/UpperArm_R
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_R/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Armature/Hip/Tummy/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R
+        weight: 1
+      - path: Armature/Right_Knee
+        weight: 1
+      - path: Armature/Right_Knee_L
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: Robe
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Dodge
+      takeName: ArmatureAction
+      firstFrame: 85
+      lastFrame: 97
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

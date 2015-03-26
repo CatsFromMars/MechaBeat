@@ -11,6 +11,8 @@ public class GoodController : _AbstractRhythmObject {
     public float accuracy;
 
     private GameObject controller;
+    private GameObject particleContainer;
+    private GameObject particleContainer2;
     private HashIDs hash;
     private Animator animator;
     private int jumpsLeft;
@@ -24,7 +26,8 @@ public class GoodController : _AbstractRhythmObject {
         controller = GameObject.FindGameObjectWithTag("GameController");
         hash = controller.GetComponent<HashIDs>();
         animator = GetComponent<Animator>();
-		particleSystem.emissionRate = 0;
+        particleContainer = transform.FindChild("ParticleSystem").gameObject;
+        particleContainer2 = transform.FindChild("ParticleSystem2").gameObject;
     }
 
     void FixedUpdate() {
@@ -60,12 +63,13 @@ public class GoodController : _AbstractRhythmObject {
 
 		if (Input.GetKeyDown(KeyCode.X) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
             jumping = true;
-			particleSystem.Emit(10);  
+            particleContainer.particleSystem.Emit(50);  
             jumpsLeft--;
         }
 
         if (Input.GetKeyDown(KeyCode.Z) && !dodging && onBeat(accuracy) && getBeat() % 2 == 1) {
             StartCoroutine(dodgeSequence(secondsPerBeat));
+            particleContainer2.particleSystem.Emit(50);  
         }
         animate();
     }

@@ -11,13 +11,16 @@ public class Gusty : _AbstractRhythmObject {
     private int currentWaypoint = 0;
     private float speed = 0f;
     public float walkingSpeed = 5f; //Made public so that you can adjust for harder difficulties.
+	public bool relative = false;
 
     // Use this for initialization
     void Awake() {
         controller = GameObject.FindGameObjectWithTag ("GameController");
         hash = controller.GetComponent<HashIDs>();
         animator = GetComponent<Animator>();
-        transform.position = new Vector3 (waypoints[0], transform.position.y, transform.position.z);
+
+        if(relative) transform.position = new Vector3 (waypoints[0]+transform.position.x, transform.position.y, transform.position.z);
+		else transform.position = new Vector3 (waypoints[0]+transform.position.x, transform.position.y, transform.position.z);
     }
 
     void moveStart() {
@@ -33,14 +36,18 @@ public class Gusty : _AbstractRhythmObject {
     override protected void asyncUpdate () {
         //Move towards the waypoint.
         float step = speed * Time.deltaTime;
-		Vector3 target = new Vector3(waypoints[currentWaypoint], 
-		                             transform.position.y, transform.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, target, step);
+		Vector3 target;
+
+		if(relative) target = new Vector3(waypoints[currentWaypoint]+transform.position.x,transform.position.y, transform.position.z);
+		else target = new Vector3(waypoints[currentWaypoint],transform.position.y, transform.position.z);
+
+		transform.position = Vector3.MoveTowards(transform.position, target, step);
 
 		if(transform.position == target) { //If we reach a waypoint...
             currentWaypoint = (currentWaypoint+1) % waypoints.Length; //Set the next waypoint
-			transform.LookAt(new Vector3(waypoints[currentWaypoint], 
-			                             transform.position.y, transform.position.z)); //Look at the next waypoint
+			if(relative) target = new Vector3(waypoints[currentWaypoint]+transform.position.x,transform.position.y, transform.position.z);
+			else target = new Vector3(waypoints[currentWaypoint],transform.position.y, transform.position.z);
+			transform.LookAt(target); //Look at the next waypoint
         }
     }
 

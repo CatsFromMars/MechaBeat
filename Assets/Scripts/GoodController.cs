@@ -63,14 +63,14 @@ public class GoodController : _AbstractRhythmObject {
 
 		if ((Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space)) && jumpsLeft > 0 && onBeat(accuracy) && getBeat() % 2 == 1) {
             jumping = true;
-            particleContainer.particleSystem.Play (); 
+            particleContainer.particleSystem.Emit(25); 
 			audio.Play();
             jumpsLeft--;
         }
 
         if (Input.GetKeyDown(KeyCode.Z) && !dodging && onBeat(accuracy) && getBeat() % 2 == 1) {
             StartCoroutine(dodgeSequence(secondsPerBeat));
-            particleContainer2.particleSystem.Play (); 
+            particleContainer2.particleSystem.Emit(25); 
 			audio.Play();
         }
         animate();

@@ -12,6 +12,8 @@ public class Gusty : _AbstractRhythmObject {
     private float speed = 0f;
     public float walkingSpeed = 5f; //Made public so that you can adjust for harder difficulties.
 	public bool relative = false;
+	private float origPos;
+	public float beat = 6;
 
     // Use this for initialization
     void Awake() {
@@ -19,6 +21,7 @@ public class Gusty : _AbstractRhythmObject {
         hash = controller.GetComponent<HashIDs>();
         animator = GetComponent<Animator>();
 
+		origPos = transform.position.x;
 		Vector3 target;
 		if(relative) target = new Vector3(waypoints[currentWaypoint]+transform.position.x,transform.position.y, transform.position.z);
 		else target = new Vector3(waypoints[currentWaypoint],transform.position.y, transform.position.z);
@@ -40,14 +43,14 @@ public class Gusty : _AbstractRhythmObject {
         float step = speed * Time.deltaTime;
 		Vector3 target;
 
-		if(relative) target = new Vector3(waypoints[currentWaypoint]+transform.position.x,transform.position.y, transform.position.z);
+		if(relative) target = new Vector3(waypoints[currentWaypoint]+origPos,transform.position.y, transform.position.z);
 		else target = new Vector3(waypoints[currentWaypoint],transform.position.y, transform.position.z);
 
 		transform.position = Vector3.MoveTowards(transform.position, target, step);
 
 		if(transform.position == target) { //If we reach a waypoint...
             currentWaypoint = (currentWaypoint+1) % waypoints.Length; //Set the next waypoint
-			if(relative) target = new Vector3(waypoints[currentWaypoint]+transform.position.x,transform.position.y, transform.position.z);
+			if(relative) target = new Vector3(waypoints[currentWaypoint]+origPos,transform.position.y, transform.position.z);
 			else target = new Vector3(waypoints[currentWaypoint],transform.position.y, transform.position.z);
 			transform.LookAt(target); //Look at the next waypoint
         }
@@ -55,7 +58,7 @@ public class Gusty : _AbstractRhythmObject {
 
     override protected void rhythmUpdate() {
 
-        if(getBeat()%6 == 0) {
+        if(getBeat()%beat == 0) {
             animator.SetTrigger(hash.attackTrigger); //Attack every 6th beat.
         }
         else {

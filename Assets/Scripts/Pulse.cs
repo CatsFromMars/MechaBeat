@@ -11,7 +11,7 @@ public class Pulse : _AbstractRhythmObject {
     override protected void rhythmUpdate() {
         int size = scaleVectors.Length;
             
-        if (size < 1 || modulo < 1 || getBeat() % modulo != moduloBeat) {
+        if (size < 1 || modulo < 1 || (getBeat() % modulo) != moduloBeat) {
             return;
         }
         

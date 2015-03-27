@@ -19,9 +19,11 @@ public class Gusty : _AbstractRhythmObject {
         hash = controller.GetComponent<HashIDs>();
         animator = GetComponent<Animator>();
 
-        if(relative) transform.position = new Vector3 (waypoints[0]+transform.position.x, transform.position.y, transform.position.z);
-		else transform.position = new Vector3 (waypoints[0]+transform.position.x, transform.position.y, transform.position.z);
-    }
+		Vector3 target;
+		if(relative) target = new Vector3(waypoints[currentWaypoint]+transform.position.x,transform.position.y, transform.position.z);
+		else target = new Vector3(waypoints[currentWaypoint],transform.position.y, transform.position.z);
+		transform.LookAt(target); //Look at the next waypoint
+	}
 
     void moveStart() {
         //Animation Event for walking. Used to sync up steps. Otherwise it would moonwalk.
